@@ -3,11 +3,9 @@ FROM openjdk:17-slim
 # Set the working directory
 WORKDIR /app
 
-# Copy the application JAR file
-COPY target/my-app-1.0-SNAPSHOT.jar app.jar
+# Copy the jar file into the container
+COPY target/my-app-1.0-SNAPSHOT.jar /app/app.jar
 
-# Expose the application port
-EXPOSE 8080
+# Run the jar file
+CMD ["java", "-jar", "app.jar"]
 
-# Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
