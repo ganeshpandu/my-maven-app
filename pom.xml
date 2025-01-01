@@ -19,6 +19,7 @@
         </dependency>
     </dependencies>
 
+    <!-- Add the Maven Compiler Plugin to specify Java version -->
     <build>
         <plugins>
             <plugin>
@@ -32,14 +33,30 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.8</version>
-                <extensions>true</extensions>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
                 <configuration>
-                    <serverId>nexus-repo</serverId>
-                    <nexusUrl>http://192.168.247.139:8081/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>com.example.App</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
+            </plugin>
+            <!-- Add the OWASP Dependency-Check plugin with updated version -->
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>7.0.4</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -47,12 +64,12 @@
     <distributionManagement>
         <repository>
             <id>nexus-repo</id>
-            <name>Nexus Release Repository</name>
+            <name>maven-releases</name>
             <url>http://192.168.247.139:8081/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>nexus-snapshot-repo</id>
-            <name>Nexus Snapshot Repository</name>
+            <name>maven-snapshotos</name>
             <url>http://192.168.247.139:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
