@@ -65,18 +65,13 @@
     </build>
 
     <distributionManagement>
-        <!-- Repository for Release Artifacts -->
         <repository>
-            <id>nexus-releases</id>
-            <name>Maven Releases</name>
+            <id>nexus</id>
             <url>http://192.168.247.139:8081/repository/maven-releases/</url>
         </repository>
-        <!-- Repository for Snapshot Artifacts -->
         <snapshotRepository>
-            <id>nexus-snapshots</id>
-            <name>Maven Snapshots</name>
+            <id>nexus</id>
             <url>http://192.168.247.139:8081/repository/maven-snapshots/</url>
-        </snapshotRepository>
+        </snapshotRepository> 
     </distributionManagement>
 </project>
-
