@@ -19,7 +19,6 @@
         </dependency>
     </dependencies>
 
-    <!-- Add the Maven Compiler Plugin to specify Java version -->
     <build>
         <plugins>
             <plugin>
@@ -45,7 +44,6 @@
                     </archive>
                 </configuration>
             </plugin>
-            <!-- Add the OWASP Dependency-Check plugin with updated version -->
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
@@ -61,16 +59,29 @@
         </plugins>
     </build>
 
-    <distributionManagement>
-        <repository>
-            <id>nexus-repo</id>
-            <name>maven-releases</name>
-            <url>http://192.168.247.139:8081/repository/maven-releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>nexus-snapshot-repo</id>
-            <name>maven-snapshotos</name>
-            <url>http://192.168.247.139:8081/repository/maven-snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
+    <profiles>
+        <profile>
+            <id>nexus-deploy</id>
+            <properties>
+                <nexus.repo.id>nexus-repo</nexus.repo.id>
+                <nexus.repo.url>http://192.168.247.139:8081/repository/maven-releases/</nexus.repo.url>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <version>2.8.2</version>
+                        <configuration>
+                            <repositoryId>${nexus.repo.id}</repositoryId>
+                            <url>${nexus.repo.url}</url>
+                            <username>${nexus.username}</username>
+                            <password>${nexus.password}</password>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
+
